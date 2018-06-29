@@ -1,0 +1,1 @@
+<? $filesInfo = array( 'FILES' => array("/bitrix/components/bitrix/catalog.smart.filter/templates/visual_vertical/script.js" => "153008958313500",)); ?>

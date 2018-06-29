@@ -1,0 +1,1 @@
+<? $filesInfo = array( 'FILES' => array("/bitrix/js/pull/pull.js" => "153008976529620",)); ?>

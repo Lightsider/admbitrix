@@ -1,0 +1,1 @@
+<? $filesInfo = array( 'FILES' => array("/local/templates/main/components/bitrix/catalog.smart.filter/filter_main/style.css" => "153009958431736","/local/templates/main/components/bitrix/catalog.smart.filter/filter_main/themes/black/colors.css" => "1530099584463",)); ?>

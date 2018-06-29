@@ -1,0 +1,1 @@
+<? $filesInfo = array( 'FILES' => array("/bitrix/components/bitrix/catalog.item/templates/.default/script.js" => "153008957240883","/bitrix/components/bitrix/catalog.top/templates/.default/section/script.js" => "15300895873522",)); ?>

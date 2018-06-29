@@ -1,0 +1,1 @@
+<? $filesInfo = array( 'FILES' => array("/bitrix/js/catalog/core_tree.js" => "153008938444551",)); ?>
