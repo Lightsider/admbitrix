@@ -81,8 +81,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET')
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && check_bitrix_sessid() && isset($_POST['sender_subscription']) && $_POST['sender_subscription']=='add')
 {
+
 	if(check_email($_POST["SENDER_SUBSCRIBE_EMAIL"], true))
 	{
+
 		if(!CModule::IncludeModule("sender"))
 		{
 			$obCache->AbortDataCache();
@@ -164,6 +166,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && check_bitrix_sessid() && isset($_POST
 
             // generate coupon and send it in email
 
+
+
             $sendCoupon = true;
 
             if(count($mailingIdList) > 0)
@@ -181,13 +185,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && check_bitrix_sessid() && isset($_POST
                 // send if it have new subscriptions only
                 if(count(array_diff($mailingIdList, $arExistedSubscription)) <= 0)
                     $sendCoupon = false;
+
             }
             else
             {
                 // do not send if no selected mailings and subscriber existed
-                $contactDb = \Bitrix\Sender\ContactTable::getList(array('filter' => array('=EMAIL' => strtolower($_POST["SENDER_SUBSCRIBE_EMAIL"]))));
-                if($contact = $contactDb->fetch())
-                    $sendCoupon = false;
+//                $contactDb = \Bitrix\Sender\ContactTable::getList(array('filter' => array('=EMAIL' => strtolower($_POST["SENDER_SUBSCRIBE_EMAIL"]))));
+//                if($contact = $contactDb->fetch())
+//                    $sendCoupon = false;
             }
 
             \Bitrix\Sender\Subscription::add($_POST["SENDER_SUBSCRIBE_EMAIL"], $mailingIdList, SITE_ID);
@@ -198,7 +203,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && check_bitrix_sessid() && isset($_POST
                 {
                     $COUPON = \Bitrix\Sale\Internals\DiscountCouponTable::generateCoupon(true); //генерируем купон
                     $fields = array(
-                        "DISCOUNT_ID" => "3", //ID правила работы с корзиной
+                        "DISCOUNT_ID" => "2", //ID правила работы с корзиной
                         "ACTIVE" => "Y",
                         "TYPE" => \Bitrix\Sale\Internals\DiscountCouponTable::TYPE_ONE_ORDER, //купон на один заказ
                         "COUPON" => $COUPON,
@@ -206,13 +211,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && check_bitrix_sessid() && isset($_POST
                     );
 
                     $result = \Bitrix\Sale\Internals\DiscountCouponTable::add($fields);
+
                     if($result->isSuccess())
                     {
                         $arEventFields = array(
                             "EMAIL"  => $_POST["SENDER_SUBSCRIBE_EMAIL"],
                             "COUPON" => $COUPON
                         );
-                        CEvent::Send("SEND_COUPON", "s1", $arEventFields);
+                        CEvent::SendImmediate("SEND_COUPON", "s1", $arEventFields,"N","49");
                     }
                 }
             }
